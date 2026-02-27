@@ -62,6 +62,15 @@ with st.expander("Assignment List", expanded=True):
 btn_save = st.button("Save Assignment", use_container_width=True, disabled = True)
 
 import time 
+
+import json
+from pathlib import Path 
+
+json_file_path = Path("assignments.json")
+
+
+
+
 #add new assignments
 if btn_save:
     with st.spinner("Saving assignment..."):
@@ -69,7 +78,7 @@ if btn_save:
         if title == "":
             st.error("Please enter a title for the assignment.")
             st.stop()
-            
+
         new_assignment_id_number = "HW_" + str(next_assignment_id_number)
         next_assignment_id_number += 1
         assignments.append({
@@ -78,6 +87,12 @@ if btn_save:
             "id": new_assignment_id_number
 
         })
+
+        if  json_file_path.exists():
+            with json_file_path.open("w", encoding = "utf-8") as f:
+                json.dump(assignment, f, ensure_ascii=False, indent=4)
+
+    
 
 
         st.success("Assignment saved successfully!")
