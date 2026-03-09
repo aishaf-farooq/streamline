@@ -2,16 +2,18 @@ import streamlit as st
 import json
 import os
 import time
+import json
+from pathlib import Path
 from datetime import datetime
 
 st.set_page_config(page_title="Course Manager", layout="centered")
 
 st.title("Course Manager")
 
-json_file = "users.json"
+json_file = Path( "users.json")
 
 # load users
-if os.path.exists(json_file):
+if json_file.exists():
     with open(json_file, "r") as file:
         users = json.load(file)
 else:
